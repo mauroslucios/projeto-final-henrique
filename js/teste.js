@@ -18,6 +18,7 @@ $.getJSON(endpoint_url, function (data) {
 $(window).scroll(function () {
     if(page<6){
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+            listaTeste=[];
             // ajax call get data from server and append to the div
             page++;
             endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`;
