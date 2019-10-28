@@ -1,24 +1,21 @@
 let listaCervejas = [];
-var listaTeste=[];
+var listaTeste = [];
 let page = 1;
 let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80"`
-
 // Preenche o Vetor de cervejas com TODAS as cervejas
-
 endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`
 $.getJSON(endpoint_url, function (data) {
     data.forEach(element => {
         listaCervejas.push(element)
     });
-    // console.log()
     lista(listaCervejas);
     console.log(listaCervejas)
 });
 
 $(window).scroll(function () {
-    if(page<6){
+    if (page < 6) {
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-            listaTeste=[];
+            listaTeste = [];
             // ajax call get data from server and append to the div
             page++;
             endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`;
@@ -27,7 +24,7 @@ $(window).scroll(function () {
                     listaTeste.push(element)
                 });
                 // console.log()
-                listaCervejas=listaTeste;
+                listaCervejas = listaTeste;
                 lista(listaCervejas);
                 console.log(listaCervejas);
                 console.log(page);
@@ -54,10 +51,6 @@ function lista(vetor) {
         $("#painel").append(beerHtml);
     });
 }
-
-
-
-
 
 /*
 function loadData(digitado) {
