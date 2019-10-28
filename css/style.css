@@ -1,0 +1,129 @@
+body {
+    font-size: 14px;
+    line-height: 1.462;
+    font-family: Arial, sans-serif;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  .beers {
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 18px;
+  }
+  .beers .beer {
+    background: #f9f9f9;
+    padding: 7px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .beers .beer img {
+    width: 20%;
+  }
+  .beers .beer .fa-star {
+    float: right;
+    color: #d6d6d6;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .active-star {
+    color: #00afdb !important;
+  }
+  
+  .tabs {
+    display: grid;
+    grid-template-columns: 32% 32% 32%;
+    grid-gap: 2%;
+    background: #000;
+    text-align: center;
+    padding: 2%;
+    margin-bottom: 18px;
+  }
+  
+  .tab__item {
+    background: white;
+    cursor: pointer;
+    color: #00afdb;
+  }
+  
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .active {
+    background: #00afdb;
+    color: #fff;
+  }
+  
+  .pop-up {
+    display: none;
+    position: absolute;
+    background: #000;
+    color: #fff;
+    font-size: 16px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    padding: 3%;
+    width: 55%;
+    top: 100%;
+    z-index: 99;
+  }
+  
+  .fa-window-close-o {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+  
+  .bg {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #00afdbd4;
+    display: none;
+  }
+  
+  .title {
+    color: #00afdb;
+  }
+  
+  .favourites {
+    display: none;
+    background: #00afdb;
+    position: absolute;
+    width: 100%;
+  }
+  .favourites img {
+    width: 20%;
+  }
+  
+  .favourites__title {
+    background: #00afdb;
+    display: inline-block;
+    padding: 5px;
+    color: #fff;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .favourites__item {
+    text-align: center;
+    display: inline-block;
+    width: 20%;
+  }
+  
+  .favourites__close {
+    float: right;
+    cursor: pointer;
+  }
+  
+  /*# sourceMappingURL=style.css.map */
+  
