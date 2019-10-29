@@ -1,5 +1,6 @@
 let listaCervejas = [];
 var listaTeste = [];
+let listaFavoritos=[];
 let page = 1;
 let param = 80;
 let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}"`
@@ -10,7 +11,7 @@ lista(param);
 if (valor_busca=='') {
     $(window).scroll(function () {
         if (page < 6) {
-            if ($(window).scrollTop() == $(document).height() - $(window).height() && $("#busca").val()==='') {
+            if ($(window).scrollTop() == $(document).height() - $(window).height() && $("#busca").val()=='') {
                 // listaTeste = [];
                 page++;
                 lista(param);
@@ -27,7 +28,7 @@ function lista(param) {
         data.forEach(element => {
             // console.log(element.image_url);
             if(element.image_url===null){
-                element.image_url = "https://www.bebidasfamosas.com.br/media/catalog/product/cache/19/image/650x/040ec09b1e35df139433887a97daa66f/2/9/2918_coquetel_corote_lim_o_500ml.png";
+                element.image_url = "https://cdn.awsli.com.br/600x450/91/91186/produto/3172537/3bd879a51f.jpg";
             }
             listaCervejas.push(element)
         });
@@ -44,7 +45,7 @@ function formataLista(vetor) {
             `
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <figure class="card hoverrable">
-                    <i class="fa fa-star favorited" aria-hidden="true"></i>  
+                   <a style="width:10%;position:absolute; right: 10px; color:red"> <i class="fa fa-star" onclick='addFavoritos(${element.id})'></i></a>  
                     <img class="card-img-top" src="${element.image_url}" alt="Imagem da Cerveja"/>
                     <div class="card-body">
                         <h5 class="card-title" style="color:orange">${element.name}</h4>
@@ -57,67 +58,50 @@ function formataLista(vetor) {
     });
 }
 
-
 function buscaCerveja(digitado) {
     $("#painel").empty();
     if (!digitado) {
         listaCervejas = [];
         lista(param);
-        /* for (page = 1; page < 6; page++) {
-            endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`
-            console.log(endpoint_url)
-            $.getJSON(endpoint_url, function (data) {
-                listaCervejas = data;
-                console.log(data);
-                function lista() {
-                    listaCervejas.forEach(element => {
-                        beerHtml =
-                            `
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                <figure class="card hoverrable">
-                                    <i class="fa fa-star favorited" aria-hidden="true"></i>
-                                    <img class="card-img-top" src="${element.image_url}" alt="Imagem da Cerveja"/>
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="color:orange">${element.name}</h4>
-                                        <h6 class="card-title">${element.tagline}</h5>
-                                    </div>
-                                </figure>
-                                </div>
-                                `
-                        $("#painel").append(beerHtml);
-                    });
-
-                }
-                lista(listaCervejas);
-            });
-        } */
+        
     }
     let xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var resposta = JSON.parse(this.responseText);
-            resposta.forEach(element => {
-                let beerHtml =
-                    `
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                            <figure class="card hoverrable">
-                                <i class="fa fa-star favorited" aria-hidden="true"></i>
-                                <img class="card-img-top" src="${element.image_url}" alt="Imagem da Cerveja"/>
-                                <div class="card-body">
-                                    <h5 class="card-title" style="color:orange">${element.name}</h4>
-                                    <h6 class="card-title">${element.tagline}</h5>
-                                </div>
-                            </figure>
-
-                        </div>
-                `;
-                $("#painel").append(beerHtml);
-            });
+            formataLista(resposta);
             console.log(resposta);
         }
     };
-
-    xhttp.open("GET", "https://api.punkapi.com/v2/beers?beer_name=" + digitado, true)
-    xhttp.send();
+    if(digitado!=''){
+        xhttp.open("GET", "https://api.punkapi.com/v2/beers?beer_name=" + digitado, true)
+        xhttp.send();
+    }
 } 
+
+function addFavoritos(element){
+    if(typeof(Storage) !== "undefined") {
+        if (sessionStorage.listaFavoritos) {
+            listaFavoritos = JSON.parse(sessionStorage.getItem("listaFavoritos"));
+        } else {
+            listaFavoritos = [];
+        }
+        if(listaFavoritos.includes(element)){
+            listaFavoritos.splice(listaFavoritos.indexOf(element),1);
+        }else{
+            listaFavoritos.push(element);
+        }
+        sessionStorage.listaFavoritos = JSON.stringify(listaFavoritos);
+        
+        var fav = listaCervejas.filter(item => {return listaFavoritos.includes(item.id) });
+        formataLista(fav);
+        console.log(fav);
+        
+        
+    } 
+}
+
+function favoritos(){}
+
+

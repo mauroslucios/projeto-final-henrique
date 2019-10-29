@@ -1,39 +1,69 @@
+html,
+body,
+header,
+.view {
+    height: 45%;
+}
+
+.favorited {
+    position: absolute;
+    right: 10px;
+    z-index: 4;
+    /*color: #f50057;*/
+    /*color: #4285F4;*/
+    color: #ff4444;
+    padding: 3%
+}
+
+.card-body {
+    text-align: center;
+}
+
+.nav-item li a {
+    color: #f50057;
+}
+
 body {
     font-size: 14px;
     line-height: 1.462;
     font-family: Arial, sans-serif;
-  }
-  
-  img {
+    min-height: 100%;
+}
+
+img {
     max-width: 100%;
-  }
-  
-  .beers {
+    
+}
+
+.beers {
     display: grid;
     grid-template-columns: 32% 32% 32%;
     grid-gap: 18px;
-  }
-  .beers .beer {
+}
+
+.beers .beer {
     background: #f9f9f9;
     padding: 7px;
     text-align: center;
     cursor: pointer;
-  }
-  .beers .beer img {
+}
+
+.beers .beer img {
     width: 20%;
-  }
-  .beers .beer .fa-star {
+}
+
+.beers .beer .fa-star {
     float: right;
     color: #d6d6d6;
     cursor: pointer;
     font-size: 18px;
-  }
-  
-  .active-star {
+}
+
+.active-star {
     color: #00afdb !important;
-  }
-  
-  .tabs {
+}
+
+.tabs {
     display: grid;
     grid-template-columns: 32% 32% 32%;
     grid-gap: 2%;
@@ -41,89 +71,114 @@ body {
     text-align: center;
     padding: 2%;
     margin-bottom: 18px;
-  }
-  
-  .tab__item {
+}
+
+.tab__item {
     background: white;
     cursor: pointer;
     color: #00afdb;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 900px;
     margin: 0 auto;
     position: relative;
-  }
-  
-  .active {
-    background: #00afdb;
+}
+
+.active {
+    background: orangered;
     color: #fff;
-  }
-  
-  .pop-up {
+}
+
+.pop-up {
     display: none;
     position: absolute;
-    background: #000;
+    background: #37474F;
     color: #fff;
     font-size: 16px;
     transform: translate(-50%, -50%);
     left: 50%;
     padding: 3%;
-    width: 55%;
-    top: 100%;
+    width: 80%;
+    top: 10%;
     z-index: 99;
-  }
-  
-  .fa-window-close-o {
+    border-radius: 5px;
+}
+
+.fa-window-close-o {
     position: absolute;
     right: 10px;
     top: 10px;
     cursor: pointer;
-  }
-  
-  .bg {
+}
+
+.bg {
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    background: #00afdbd4;
+    background: #d6d6d6;
     display: none;
-  }
-  
-  .title {
+    filter: alpha(opacity=50);
+    opacity: 0.7;
+    -moz-opacity: 0.7;
+    -webkit-opacity: 0.7;
+}
+
+.title {
     color: #00afdb;
-  }
-  
-  .favourites {
+}
+
+.favourites {
     display: none;
     background: #00afdb;
     position: absolute;
     width: 100%;
-  }
-  .favourites img {
+    padding: 1%;
+}
+
+.favourites img {
     width: 20%;
-  }
-  
-  .favourites__title {
+}
+
+.favourites__title {
     background: #00afdb;
     display: inline-block;
     padding: 5px;
     color: #fff;
     margin: 0;
     cursor: pointer;
-  }
-  
-  .favourites__item {
+}
+
+.favourites__item {
     text-align: center;
     display: inline-block;
     width: 20%;
-  }
-  
-  .favourites__close {
+}
+
+.favourites__close {
     float: right;
     cursor: pointer;
-  }
-  
-  /*# sourceMappingURL=style.css.map */
-  
+}
+
+.cerveja .card:hover {
+    transform: scale(1.2) rotate(0deg);
+    transition: 0.7s ease-in;
+    box-shadow: 0 0 7px #333;
+    transition: box-shadow 0.7s;
+    transition: 0.7s ease-out;
+}
+
+.modal-body img {
+    width: 25%;
+    float: left;
+}
+
+.modal-body h5 {
+    width: 25%;
+    float: center;
+}
+
+
+/*# sourceMappingURL=style.css.map */
