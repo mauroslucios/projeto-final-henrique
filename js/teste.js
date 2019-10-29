@@ -1,39 +1,44 @@
 let listaCervejas = [];
 var listaTeste = [];
 let page = 1;
-let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80"`
-// Preenche o Vetor de cervejas com TODAS as cervejas
-endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`
-$.getJSON(endpoint_url, function (data) {
-    data.forEach(element => {
-        listaCervejas.push(element)
-    });
-    lista(listaCervejas);
-    console.log(listaCervejas)
-});
+let param = 80;
+let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}"`
+let valor_busca = ''//document.getElementById("#busca").value;
 
-$(window).scroll(function () {
-    if (page < 6) {
-        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-            listaTeste = [];
-            // ajax call get data from server and append to the div
-            page++;
-            endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`;
-            $.getJSON(endpoint_url, function (data) {
-                data.forEach(element => {
-                    listaTeste.push(element)
-                });
-                // console.log()
-                listaCervejas = listaTeste;
-                lista(listaCervejas);
-                console.log(listaCervejas);
-                console.log(page);
-            });
+lista(param);
+
+if (valor_busca=='') {
+    $(window).scroll(function () {
+        if (page < 6) {
+            if ($(window).scrollTop() == $(document).height() - $(window).height() && $("#busca").val()==='') {
+                // listaTeste = [];
+                page++;
+                lista(param);
+            }
         }
-    }
-});
+    });
+}
 
-function lista(vetor) {
+function lista(param) {
+    listaTeste = [];
+    listaCervejas = listaTeste;
+    endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}`
+    $.getJSON(endpoint_url, function (data) {
+        data.forEach(element => {
+            // console.log(element.image_url);
+            if(element.image_url===null){
+                element.image_url = "https://www.bebidasfamosas.com.br/media/catalog/product/cache/19/image/650x/040ec09b1e35df139433887a97daa66f/2/9/2918_coquetel_corote_lim_o_500ml.png";
+            }
+            listaCervejas.push(element)
+        });
+        
+        formataLista(listaCervejas);
+        console.log(listaCervejas)
+    });
+
+}
+
+function formataLista(vetor) {
     vetor.forEach(element => {
         beerHtml =
             `
@@ -52,11 +57,13 @@ function lista(vetor) {
     });
 }
 
-/*
-function loadData(digitado) {
+
+function buscaCerveja(digitado) {
     $("#painel").empty();
     if (!digitado) {
-        for (page = 1; page < 6; page++) {
+        listaCervejas = [];
+        lista(param);
+        /* for (page = 1; page < 6; page++) {
             endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=80`
             console.log(endpoint_url)
             $.getJSON(endpoint_url, function (data) {
@@ -83,7 +90,7 @@ function loadData(digitado) {
                 }
                 lista(listaCervejas);
             });
-        }
+        } */
     }
     let xhttp = new XMLHttpRequest();
 
@@ -113,4 +120,4 @@ function loadData(digitado) {
 
     xhttp.open("GET", "https://api.punkapi.com/v2/beers?beer_name=" + digitado, true)
     xhttp.send();
-} */
+} 
