@@ -66,10 +66,10 @@ function formataModal(element){
             <div class="text-center">
                 <div class="container">
                     <div class="row cointainer-fluid mt-4">
-                        <div class="col-md-4" style="border: 1px solid green; text-align:center; ">
-                            <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap" style="margin:0 -10px; text-align:center; max-height:382px; width:auto; height:auto;">
+                        <div class="col-md-4" style="text-align:center; padding:0 0; margin:0 0;">
+                            <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap" style="margin:0 -10px; text-align:center;max-width:100%; max-height:500px; width:auto; height:auto;">
                         </div>
-                        <div class="col-md-8"  style="border: 1px solid blue">
+                        <div class="col-md-8">
                             <h2>${modal[0].name}</h2>
                             <h4>${modal[0].tagline}</h4>
                             <hr style="border: 1px solid; color:purple; width:20%; margin-left:0; display:block;">
