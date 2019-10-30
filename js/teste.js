@@ -61,27 +61,37 @@ function formataModal(element){
     modalHtml=
     `
     <div class="modal-content">
-        <!--Header-->
-        <div class="modal-header">
-            <h1 class="heading lead" id="cabeca">${modal[0].name}</h1>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true" class="white-text">&times;</span>
-            </button>
-        </div>
         <!--Body-->
         <div class="modal-body">
             <div class="text-center">
-                <!-- <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i> -->
-                <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap" style="width:30%; margin:0px auto; text-align:center;">
-                <h4 class="text-left">Descrição</h4>
-                <p class="text-left">${modal[0].description}</p>
-                    <div class="col-md-8 text-left offset-md-4">
-                        <h5>Food Pairing</h5>
-                        <ul>
-                            <li>${modal[0].food_pairing[0]}</li>
-                            <li>${modal[0].food_pairing[1]}</li>
-                            <li>${modal[0].food_pairing[2]}</li>
-                        </ul>
+                <div class="container">
+                    <div class="row cointainer-fluid mt-4">
+                        <div class="col-md-4" style="border: 1px solid green; text-align:center; ">
+                            <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap" style="margin:0 -10px; text-align:center; max-height:382px; width:auto; height:auto;">
+                        </div>
+                        <div class="col-md-8"  style="border: 1px solid blue">
+                            <h2>${modal[0].name}</h2>
+                            <h4>${modal[0].tagline}</h4>
+                            <hr style="border: 1px solid; color:purple; width:20%; margin-left:0; display:block;">
+                            <span>
+                                <label>IBU:</label> ${modal[0].ibu}
+                            </span>
+                            <span>
+                                <label class="not">ABV:</label> ${modal[0].abv}
+                            </span>
+                            <span>
+                                <label class="not">EBC:</label> ${modal[0].ebc}
+                            </span>
+                            <p class="text-left">${modal[0].description}</p>
+                            <h5>Food Pairing</h5>
+                            <ul>
+                                <li>${modal[0].food_pairing[0]}</li>
+                                <li>${modal[0].food_pairing[1]}</li>
+                                <li>${modal[0].food_pairing[2]}</li>
+                            </ul>
+                        </div>
+                        
+                    </div>
                   </div>
             </div>
         </div>

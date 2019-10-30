@@ -80,3 +80,12 @@ body {
     transition: 0.7s ease-out;
     z-index: 100;
 }
+.not{
+    margin-left: 2%;
+}
+
+span>label{
+    font-weight: bold;
+    /* margin-right: 2%; */
+    /* margin-left: 2%; */
+}
