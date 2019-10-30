@@ -60,14 +60,14 @@ function lista(param = 80) {
 function formataLista(vetor) {
     vetor.forEach(element => {
         beerHtml =
-            `
-            <div class="card ">
-                <a ><i class="fas fa-star favorite" onclick='addFavoritos(${element.id})'></i></a>
-                <img class="card-img-top smalling" src="${element.image_url}" alt="${element.name}"/>
-                <div class="card-body">
-                    <h4 class="card-title">${element.name}</h4>
-                    <p class="card-text">${element.tagline}</p>
-                </div>
+
+            `<div class="card" >
+            <a><i class="fas fa-star favorited" onclick="addFavoritos(${element.id})"></i></a>
+            <img class="card-img-top img-fluid" src="${element.image_url}" alt="${element.name}"/>
+            <div class="card-body">
+                <h4 class="card-title" style="font-size:14px; font-weight:bold">${element.name}</h4>
+                <p class="card-text">${element.tagline}</p>
+            </div>
             </div>
             `
         $("#painel").append(beerHtml);
