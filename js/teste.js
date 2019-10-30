@@ -43,7 +43,7 @@ function formataLista(vetor) {
         beerHtml =
             `
             <div class="card">
-            <a><i class="fas fa-star favorited" onclick="addFavoritos(${element.id})"></i></a>
+            <a><i class="far fa-star" onclick="addFavoritos(${element.id})"></i></a>
             <img class="card-img-top img-fluid" src="${element.image_url}" alt="${element.name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${element.id})"/>
             <div class="card-body">
                 <h4 class="card-title" style="font-size:14px; font-weight:bold">${element.name}</h4>
@@ -85,11 +85,15 @@ function formataModal(element) {
     <div class="modal-content">
         <!--Body-->
         <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
             <div class="text-center">
                 <div class="container">
                     <div class="row cointainer-fluid mt-4">
                         <div class="col-md-4" style="text-align:center; padding:0 0; margin:0 0;">
-                            <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap" style="margin:0 -10px; text-align:center;max-width:100%; max-height:500px; width:auto; height:auto;">
+                            <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap"
+                                style="margin:0 -10px; text-align:center;max-width:100%; max-height:500px; width:auto; height:auto;">
                         </div>
                         <div class="col-md-8">
                             <h2>${modal[0].name}</h2>
@@ -105,18 +109,20 @@ function formataModal(element) {
                                 <label class="not">EBC:</label> ${modal[0].ebc}
                             </span>
                             <p class="text-left">${modal[0].description}</p>
-                            <h5>Food Pairing</h5>
+                            <div style=""><h5>Best served with:</h5>
                             <ul>
                                 <li>${modal[0].food_pairing[0]}</li>
                                 <li>${modal[0].food_pairing[1]}</li>
                                 <li>${modal[0].food_pairing[2]}</li>
                             </ul>
+                            </div>
                         </div>
-                        <p><h5>You might also like:</h5></p>
                     </div>
-                    <div class="card-deck cerveja row container-fluid mt-4" id="deck_modal" style="padding:0px; border: 1px solid green; display:flex;">
-                        
+                    <p><h5>You might also like:</h5></p>
+                    <div class="row">
+                        <div class="card-deck cerveja row container-fluid mt-4" id="deck_modal" style="display:flex;">
                         </div>
+                    </div>
                     </div>
                     </div>
                 </div>
@@ -138,8 +144,8 @@ function formataModal(element) {
         modalDeck = 
         `
         <div class="card">
-            <a><i class="fas fa-star favorited" onclick="addFavoritos(${element.id})"></i></a>
-            <img class="card-img-top img-fluid" src="${teste[i].image_url}" alt="${teste[i].name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${element.id})"/>
+            <a><i class="far fa-star" onclick="addFavoritos(${teste[i].id})"></i></a>
+            <img class="card-img-top img-fluid" src="${teste[i].image_url}" alt="${teste[i].name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${teste[i].id})"/>
             <div class="card-body">
                 <h4 class="card-title" style="font-size:14px; font-weight:bold">${teste[i].name}</h4>
                 <p class="card-text">${teste[i].tagline}</p>
@@ -148,11 +154,6 @@ function formataModal(element) {
         `;
         $("#deck_modal").append(modalDeck);
     }
-    
-    
-
-
-
 }
 
 function buscaCerveja(digitado) {
@@ -192,8 +193,6 @@ function addFavoritos(element) {
         sessionStorage.listaFavoritos = JSON.stringify(listaFavoritos);
 
         var fav = listaCervejas.filter(item => { return listaFavoritos.includes(item.id) });
-        var vetorDeck = listaCervejas.filter(item => { return vetor.includes(item.id) });
-        // formataLista(fav);
         console.log(fav);
 
     }
