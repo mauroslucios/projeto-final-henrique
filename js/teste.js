@@ -7,7 +7,7 @@ let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${par
 let valor_busca = ''//document.getElementById("#busca").value;
 
 lista(param);
-
+console.log(addFavoritos());
 if (valor_busca=='') {
     $(window).scroll(function () {
         if (page < 6) {
@@ -20,9 +20,8 @@ if (valor_busca=='') {
     });
 }
 
-function lista(param) {
-    listaTeste = [];
-    listaCervejas = listaTeste;
+function lista(param=80) {
+    listaCervejas = [];
     endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}`
     $.getJSON(endpoint_url, function (data) {
         data.forEach(element => {
@@ -45,7 +44,7 @@ function formataLista(vetor) {
             `
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <figure class="card hoverrable">
-                   <a style="width:10%;position:absolute; right: 10px; color:red"> <i class="fa fa-star" onclick='addFavoritos(${element.id})'></i></a>  
+                   <a style="width:10%;position:absolute; right: 10px;"> <i id ="estrela" class="fa fa-star" onclick='addFavoritos(${element.id})'></i></a>  
                     <img class="card-img-top" src="${element.image_url}" alt="Imagem da Cerveja"/>
                     <div class="card-body">
                         <h5 class="card-title" style="color:orange">${element.name}</h4>
@@ -95,13 +94,19 @@ function addFavoritos(element){
         sessionStorage.listaFavoritos = JSON.stringify(listaFavoritos);
         
         var fav = listaCervejas.filter(item => {return listaFavoritos.includes(item.id) });
-        formataLista(fav);
+        // formataLista(fav);
         console.log(fav);
         
-        
-    } 
+    }
+    return fav; 
 }
 
-function favoritos(){}
-
-
+ function listaFav(vetor=addFavoritos()){
+    $("#painel").empty();
+    page=6;
+    listaCervejasFavoritas = vetor;
+    $.getJSON(endpoint_url, function (data) {        
+        formataLista(listaCervejasFavoritas);
+        console.log(listaCervejasFavoritas)
+    });
+}

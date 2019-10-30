@@ -4,7 +4,6 @@ header,
 .view {
     height: 45%;
 }
-
 .favorited {
     position: absolute;
     right: 10px;
@@ -179,6 +178,7 @@ img {
     width: 25%;
     float: center;
 }
+
 
 
 /*# sourceMappingURL=style.css.map */
