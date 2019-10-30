@@ -5,8 +5,9 @@ let page = 1;
 let param = 80;
 let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}"`
 let valor_busca = '';
+let addModal = [];
 lista(param);
-// console.log(addFavoritos());
+
 if (valor_busca == '') {
     $(window).scroll(function () {
         if (page < 6) {
@@ -54,12 +55,40 @@ function formataLista(vetor) {
     });
 }
 
-function formataModal(element){
+function preencheDeckModal(vetor) {
+    addModal.push(vetor);
+    var vetorDeck = listaCervejas.filter(item => { return addModal.includes(item.id) });
+
+    console.log(vetorDeck);
+
+    listaCervejas.forEach(element => {
+        if (element.ebc == vetorDeck[0].ebc) {
+            if (!vetorDeck.includes(element))
+                vetorDeck.push(element);
+        }
+    });
+    console.log(vetorDeck);
+    return vetorDeck;
+}
+
+function formataModal(element) {
     let listaModal = [];
     listaModal.push(element);
     let modal = listaCervejas.filter(item => { return listaModal.includes(item.id) });
-    modalHtml=
+
+    console.log(preencheDeckModal(element));
+
+    preencheDeckModal(element);
+
+    modalDeck=
     `
+    
+    
+    `;
+
+
+    modalHtml =
+        `
     <div class="modal-content">
         <!--Body-->
         <div class="modal-body">
@@ -90,9 +119,14 @@ function formataModal(element){
                                 <li>${modal[0].food_pairing[2]}</li>
                             </ul>
                         </div>
-                        
+                        <h5>You might also like:</h5>
                     </div>
-                  </div>
+                    <div class="card-deck cerveja row container-fluid mt-4" id="deck_modal" style="border: 1px solid green; display:flex;">
+                        
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -100,13 +134,7 @@ function formataModal(element){
     `;
     $("#interior_popup").empty();
     $("#interior_popup").append(modalHtml);
-    
-    /* modalHtml = 
-    `
-    ${modal[0].name}    
-    `;
-    $("#cabeca").empty();
-    $("#cabeca").append(modalHtml); */
+
 }
 
 function buscaCerveja(digitado) {
@@ -146,6 +174,7 @@ function addFavoritos(element) {
         sessionStorage.listaFavoritos = JSON.stringify(listaFavoritos);
 
         var fav = listaCervejas.filter(item => { return listaFavoritos.includes(item.id) });
+        var vetorDeck = listaCervejas.filter(item => { return vetor.includes(item.id) });
         // formataLista(fav);
         console.log(fav);
 
