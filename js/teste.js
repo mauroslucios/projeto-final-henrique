@@ -59,7 +59,7 @@ function preencheDeckModal(vetor) {
     addModal.push(vetor);
     var vetorDeck = listaCervejas.filter(item => { return addModal.includes(item.id) });
 
-    console.log(vetorDeck);
+    // console.log(vetorDeck);
 
     listaCervejas.forEach(element => {
         if (element.ebc == vetorDeck[0].ebc) {
@@ -67,7 +67,7 @@ function preencheDeckModal(vetor) {
                 vetorDeck.push(element);
         }
     });
-    console.log(vetorDeck);
+    // console.log(vetorDeck);
     return vetorDeck;
 }
 
@@ -76,18 +76,11 @@ function formataModal(element) {
     listaModal.push(element);
     let modal = listaCervejas.filter(item => { return listaModal.includes(item.id) });
 
-    console.log(preencheDeckModal(element));
+    // console.log(preencheDeckModal(element));
 
-    preencheDeckModal(element);
-
-    modalDeck=
-    `
     
-    
-    `;
 
-
-    modalHtml =
+    let modalHtml =
         `
     <div class="modal-content">
         <!--Body-->
@@ -119,9 +112,9 @@ function formataModal(element) {
                                 <li>${modal[0].food_pairing[2]}</li>
                             </ul>
                         </div>
-                        <h5>You might also like:</h5>
+                        <p><h5>You might also like:</h5></p>
                     </div>
-                    <div class="card-deck cerveja row container-fluid mt-4" id="deck_modal" style="border: 1px solid green; display:flex;">
+                    <div class="card-deck cerveja row container-fluid mt-4" id="deck_modal" style="padding:0px; border: 1px solid green; display:flex;">
                         
                         </div>
                     </div>
@@ -134,6 +127,31 @@ function formataModal(element) {
     `;
     $("#interior_popup").empty();
     $("#interior_popup").append(modalHtml);
+    
+    console.log("preencheModal:",preencheDeckModal(element));
+    teste=preencheDeckModal(element);
+   console.log("modal:",modal)
+    $("#deck_modal").empty();
+   
+    let modalDeck;
+    for(let i=0;i<3;i++){
+        modalDeck = 
+        `
+        <div class="card">
+            <a><i class="fas fa-star favorited" onclick="addFavoritos(${element.id})"></i></a>
+            <img class="card-img-top img-fluid" src="${teste[i].image_url}" alt="${teste[i].name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${element.id})"/>
+            <div class="card-body">
+                <h4 class="card-title" style="font-size:14px; font-weight:bold">${teste[i].name}</h4>
+                <p class="card-text">${teste[i].tagline}</p>
+            </div>
+        </div>
+        `;
+        $("#deck_modal").append(modalDeck);
+    }
+    
+    
+
+
 
 }
 
