@@ -4,8 +4,7 @@ let listaFavoritos = [];
 let page = 1;
 let param = 80;
 let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}"`
-let valor_busca = ''//document.getElementById("#busca").value;
-
+let valor_busca = '';
 lista(param);
 // console.log(addFavoritos());
 if (valor_busca == '') {
@@ -38,32 +37,13 @@ function lista(param = 80) {
 
 }
 
-/* function formataLista(vetor) {
-    vetor.forEach(element => {
-        beerHtml =
-            `
-            <div class="col-lg-4 col-md-6 col-sm-12">
-                <figure class="card hoverrable">
-                   <a style="width:10%;position:absolute; right: 10px;"> <i id ="estrela" class="fa fa-star" onclick='addFavoritos(${element.id})'></i></a>  
-                    <img class="card-img-top" src="${element.image_url}" alt="Imagem da Cerveja"/>
-                    <div class="card-body">
-                        <h5 class="card-title" style="color:orange">${element.name}</h4>
-                        <h6 class="card-title">${element.tagline}</h5>
-                    </div>
-                </figure>
-            </div>
-            `
-        $("#painel").append(beerHtml);
-    });
-} */
-
 function formataLista(vetor) {
     vetor.forEach(element => {
         beerHtml =
-
-            `<div class="card" >
+            `
+            <div class="card">
             <a><i class="fas fa-star favorited" onclick="addFavoritos(${element.id})"></i></a>
-            <img class="card-img-top img-fluid" src="${element.image_url}" alt="${element.name}"/>
+            <img class="card-img-top img-fluid" src="${element.image_url}" alt="${element.name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${element.id})"/>
             <div class="card-body">
                 <h4 class="card-title" style="font-size:14px; font-weight:bold">${element.name}</h4>
                 <p class="card-text">${element.tagline}</p>
@@ -72,6 +52,51 @@ function formataLista(vetor) {
             `
         $("#painel").append(beerHtml);
     });
+}
+
+function formataModal(element){
+    let listaModal = [];
+    listaModal.push(element);
+    let modal = listaCervejas.filter(item => { return listaModal.includes(item.id) });
+    modalHtml=
+    `
+    <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+            <h1 class="heading lead" id="cabeca">${modal[0].name}</h1>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" class="white-text">&times;</span>
+            </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+            <div class="text-center">
+                <!-- <i class="fas fa-check fa-4x mb-3 animated rotateIn"></i> -->
+                <img class="card-img-top" src="${modal[0].image_url}" alt="Card image cap" style="width:30%; margin:0px auto; text-align:center;">
+                <h4 class="text-left">Descrição</h4>
+                <p class="text-left">${modal[0].description}</p>
+                    <div class="col-md-8 text-left offset-md-4">
+                        <h5>Food Pairing</h5>
+                        <ul>
+                            <li>${modal[0].food_pairing[0]}</li>
+                            <li>${modal[0].food_pairing[1]}</li>
+                            <li>${modal[0].food_pairing[2]}</li>
+                        </ul>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+    `;
+    $("#interior_popup").empty();
+    $("#interior_popup").append(modalHtml);
+    
+    /* modalHtml = 
+    `
+    ${modal[0].name}    
+    `;
+    $("#cabeca").empty();
+    $("#cabeca").append(modalHtml); */
 }
 
 function buscaCerveja(digitado) {
