@@ -1,7 +1,13 @@
-#popup h2,h5{
+#popup h5{
     color:orange;
     font-weight: bold;
 }
+
+#popup h2{
+    color:orange;
+    font-weight: bold;
+}
+
 body {
     font-size: 14px;
     line-height: 1.462;
