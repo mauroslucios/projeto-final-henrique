@@ -110,10 +110,10 @@ function formataModal(element) {
                             </span>
                             <p class="text-left">${modal[0].description}</p>
                             <div style=""><h5>Best served with:</h5>
-                            <ul>
-                                <li>${modal[0].food_pairing[0]}</li>
+                            <ul id="lista_comidas">
+                                <!--<li>${modal[0].food_pairing[0]}</li>
                                 <li>${modal[0].food_pairing[1]}</li>
-                                <li>${modal[0].food_pairing[2]}</li>
+                                <li>${modal[0].food_pairing[2]}</li>-->
                             </ul>
                             </div>
                         </div>
@@ -134,9 +134,22 @@ function formataModal(element) {
     $("#interior_popup").empty();
     $("#interior_popup").append(modalHtml);
     
+    $("#lista_comidas").empty();
+    let modalFood;
+    let comidas = modal[0].food_pairing;
+    console.log("comidas: ",comidas)
+    comidas.forEach(element => {
+        modalFood=
+        `
+        <li>${element}</li>
+        `;
+        $("#lista_comidas").append(modalFood);
+    });
+   
+    
     console.log("preencheModal:",preencheDeckModal(element));
     teste=preencheDeckModal(element);
-   console.log("modal:",modal)
+    console.log("modal:",modal)
     $("#deck_modal").empty();
    
     let modalDeck;
@@ -154,6 +167,9 @@ function formataModal(element) {
         `;
         $("#deck_modal").append(modalDeck);
     }
+
+    
+    
 }
 
 function buscaCerveja(digitado) {
