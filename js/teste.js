@@ -167,7 +167,6 @@ function formataModal(element) {
         modalDeck = 
         `
         <div class="card">
-            <a><i class="far fa-star" onclick="addFavoritos(${teste[i].id})"></i></a>
             <img class="card-img-top img-fluid" src="${teste[i].image_url}" alt="${teste[i].name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${teste[i].id})"/>
             <div class="card-body">
                 <h4 class="card-title" style="font-size:14px; font-weight:bold">${teste[i].name}</h4>
@@ -175,6 +174,9 @@ function formataModal(element) {
         </div>
         `;
         $("#deck_modal").append(modalDeck);
+        if(engradado!=null && engradado.includes(element.id)){
+            $(`#id-${element.id}`).removeClass('far fa-star').addClass('fas fa-star ');	
+        }
     }
 }
 
