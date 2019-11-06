@@ -6,7 +6,11 @@ let param = 80;
 let endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}"`
 let valor_busca = '';
 let addModal = [];
+let listaFavi=[];
+let listaCervejasFavoritas=[];
+let engradado = JSON.parse(sessionStorage.getItem("listaFavoritos"));
 lista(param);
+
 
 if (valor_busca == '') {
     $(window).scroll(function () {
@@ -21,6 +25,8 @@ if (valor_busca == '') {
 }
 
 function lista(param = 80) {
+    console.log("FAV:", engradado)
+
     listaCervejas = [];
     endpoint_url = `https://api.punkapi.com/v2/beers?page=${page}&per_page=${param}`
     $.getJSON(endpoint_url, function (data) {
@@ -31,11 +37,10 @@ function lista(param = 80) {
             }
             listaCervejas.push(element)
         });
-
         formataLista(listaCervejas);
         console.log(listaCervejas)
     });
-
+  
 }
 
 function formataLista(vetor) {
@@ -43,7 +48,7 @@ function formataLista(vetor) {
         beerHtml =
             `
             <div class="card">
-            <a><i class="far fa-star" onclick="addFavoritos(${element.id})"></i></a>
+            <a><i class="far fa-star" id="id-${element.id}" onclick="addFavoritos(${element.id})"></i></a>
             <img class="card-img-top img-fluid" src="${element.image_url}" alt="${element.name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${element.id})"/>
             <div class="card-body">
                 <h4 class="card-title" style="font-size:14px; font-weight:bold">${element.name}</h4>
@@ -52,8 +57,13 @@ function formataLista(vetor) {
             </div>
             `
         $("#painel").append(beerHtml);
+        if(engradado!=null && engradado.includes(element.id)){
+            $(`#id-${element.id}`).removeClass('far fa-star').addClass('fas fa-star ');	
+        }
     });
 }
+
+
 
 function preencheDeckModal(vetor) {
     addModal.push(vetor);
@@ -85,9 +95,11 @@ function formataModal(element) {
     <div class="modal-content">
         <!--Body-->
         <div class="modal-body">
+        <div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
+        </div>
             <div class="text-center">
                 <div class="container">
                     <div class="row cointainer-fluid mt-4">
@@ -111,9 +123,7 @@ function formataModal(element) {
                             <p class="text-left">${modal[0].description}</p>
                             <div style=""><h5>Best served with:</h5>
                             <ul id="lista_comidas">
-                                <!--<li>${modal[0].food_pairing[0]}</li>
-                                <li>${modal[0].food_pairing[1]}</li>
-                                <li>${modal[0].food_pairing[2]}</li>-->
+                            
                             </ul>
                             </div>
                         </div>
@@ -161,15 +171,11 @@ function formataModal(element) {
             <img class="card-img-top img-fluid" src="${teste[i].image_url}" alt="${teste[i].name}" data-dismiss="modal" data-toggle="modal" data-target="#popup" onclick="formataModal(${teste[i].id})"/>
             <div class="card-body">
                 <h4 class="card-title" style="font-size:14px; font-weight:bold">${teste[i].name}</h4>
-                <p class="card-text">${teste[i].tagline}</p>
             </div>
         </div>
         `;
         $("#deck_modal").append(modalDeck);
     }
-
-    
-    
 }
 
 function buscaCerveja(digitado) {
@@ -203,14 +209,19 @@ function addFavoritos(element) {
         }
         if (listaFavoritos.includes(element)) {
             listaFavoritos.splice(listaFavoritos.indexOf(element), 1);
+            console.log("remove:", element);
+           
+             $(`#id-${element}`).empty().removeClass('fas fa-star').addClass('far fa-star');
         } else {
             listaFavoritos.push(element);
+            console.log("add:", element);
+            
+             $(`#id-${element}`).removeClass('far fa-star').addClass('fas fa-star');
         }
         sessionStorage.listaFavoritos = JSON.stringify(listaFavoritos);
 
         var fav = listaCervejas.filter(item => { return listaFavoritos.includes(item.id) });
-        console.log(fav);
-
+         engradado = fav;
     }
     return fav;
 }
@@ -224,3 +235,4 @@ function listaFav(vetor = addFavoritos()) {
         console.log(listaCervejasFavoritas)
     });
 }
+
