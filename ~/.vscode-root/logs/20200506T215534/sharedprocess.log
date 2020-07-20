@@ -1,0 +1,3 @@
+[2020-05-06 21:55:38.524] [sharedprocess] [info] main {"machineId":"d98253d50391a0634f32cee3698457621711cd9892bea83c014b5f5bb9a04856","windowId":2}
+[2020-05-06 21:55:38.586] [sharedprocess] [error] [File Watcher (node.js)] Error: ENOENT: no such file or directory, stat '/home/mauroslucios/Documentos/angular-projects/projeto-frontend/~/.vscode-root/User/snippets'
+[2020-05-06 21:56:18.550] [sharedprocess] [info] Starting to clean up unused language packs.
